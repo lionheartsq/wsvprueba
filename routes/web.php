@@ -29,5 +29,3 @@ Route::get("/paciente/editar", "PacienteController@editarPaciente");
 //Route::put("/paciente/editar", "PacienteController@editarPaciente");
 Route::get("/paciente/eliminar", "PacienteController@eliminarPaciente");
 //Route::put("/paciente/eliminar", "PacienteController@eliminarPaciente");
-
-Route::get("/prueba", "MedicoController@prueba");

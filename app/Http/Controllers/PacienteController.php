@@ -77,16 +77,34 @@ class PacienteController extends Controller
 
     public function editarPaciente(Request $request)
     {
-        $Persona = Persona::findOrFail($request->id);
-        $Persona->primerNombre=$request->primerNombre;
-        $Persona->segundoNombre=$request->segundoNombre;
-        $Persona->primerApellido=$request->primerApellido;
-        $Persona->segundoApellido=$request->segundoApellido;
-        $Persona->tipoDocumento=$request->tipoDocumento;
-        $Persona->numeroDocumento=$request->numeroDocumento;
-        $Persona->fechaExpedicion=$request->fechaExpedicion;
-        $Persona->save();
+        $flag=$request->id;
+
+        $valid = Persona::join("Persona_rol","Persona.id","=","Persona_rol.idPersona")
+        ->where('Persona_rol.tipo', '=', '2')->where('Persona.numeroDocumento', '=', $flag)->get();
+
+        if($valid->isNotEmpty()){
+
+            foreach($valid as $valida){
+                $identificador = $valida->id;
+                }
+
+                $Persona = Persona::findOrFail($identificador);
+                $Persona->primerNombre=$request->primerNombre;
+                $Persona->segundoNombre=$request->segundoNombre;
+                $Persona->primerApellido=$request->primerApellido;
+                $Persona->segundoApellido=$request->segundoApellido;
+                $Persona->tipoDocumento=$request->tipoDocumento;
+                $Persona->fechaExpedicion=$request->fechaExpedicion;
+                $Persona->save();
+
+                $respuesta="Ok";
+        }
+        else{
+                $respuesta="No se encuentra registrado un médico con el número de documento.";
+        }
+        return ['respuesta' => $respuesta];
     }
+
     public function eliminarPaciente(Request $request)
     {
         $flag=$request->id;
