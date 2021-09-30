@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get("/medico/getInfo", "PersonaController@indexMedico");
+Route::post("/medico/crear", "PersonaController@crearMedico");
+Route::put("/medico/editar", "PersonaController@editarMedico");
+Route::put("/medico/eliminar", "PersonaController@eliminarMedico");
+
+Route::get("/paciente/getInfo", "PersonaController@indexPaciente");
+Route::post("/paciente/crear", "PersonaController@crearPaciente");
+Route::put("/paciente/editar", "PersonaController@editarPaciente");
+Route::put("/paciente/eliminar", "PersonaController@eliminarPaciente");
